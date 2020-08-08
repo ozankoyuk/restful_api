@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+	<title>RESTful API</title>
+	<!-- Bootstrap core CSS -->
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="/static/css/mdb.min.css" rel="stylesheet">
+	<!-- Custom -->
+	<link rel="stylesheet" href="/static/css/style.min.css" type="text/css">
+	<link rel="stylesheet" href="/static/css/all.css" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap" rel="stylesheet">
+	<!-- JQuery -->
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+	<!-- Bootstrap tooltips -->
+	<script type="text/javascript" src="/static/js/popper.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+	<!-- MDB core JavaScript -->
+	<script type="text/javascript" src="/static/js/mdb.min.js"></script>
+	<!-- Moment.js to format dates -->
+	<script type="text/javascript" src="/static/js/moment.min.js"></script>
+	<script type="text/javascript" src="/static/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="/static/css/bootstrap-datepicker.min.css"/>
+</head>
+
+<body>
+	<div class="todo-container">
+		<h2>RESTful API Controller</h2>
+		<div class="todo">
+			<form action="/" method="POST">
+				<div class="md-form row">
+					<div class="col-md-10">
+						<input type="text" id="count" name="count" class="form-control">
+					  <label for="form1" style="color:white">Total Count</label>
+					</div>
+					<div class="col-md-2">
+						<button type="submit" class="btn btn-amber">Add</button>
+					</div>
+				</div>
+			</form>
+
+			<hr style="border:2px solid white">
+
+			<form action="/findData" method="POST">
+				<div class="md-form input-group">
+					<table class="table table-borderless">
+						<tr>
+							<td>
+								<div class="input-group-prepend">
+									<span class="input-group-text md-addon">Start Date : </span>
+									<input id="startDate" name="startDate"
+												 class="form-control" data-provide="datepicker"
+												 data-date-format="yyyy/mm/dd">
+								</div>
+							</td>
+							<td>
+								<div class="input-group-prepend">
+									<span class="input-group-text md-addon">End Date : &nbsp; </span>
+									<input id="endDate" name="endDate"
+												 class="form-control" data-provide="datepicker"
+												 data-date-format="yyyy/mm/dd">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="input-group-prepend">
+									<span class="input-group-text md-addon">Min Count : &nbsp; </span>
+									<input id="minCount" name="minCount"  class="form-control">
+								</div>
+							</td>
+							<td>
+								<div class="input-group-prepend">
+									<span class="input-group-text md-addon">Max Count: &nbsp; </span>
+									<input id="maxCount" name="maxCount"  class="form-control">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<button type="submit" class="btn btn-amber">search</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+
+			<hr style="border:2px solid white">
+
+			<table class="table">
+			  <thead>
+			    <tr>
+			      <th style="font-size:x-large" scope="col">Total Count</th>
+						<th style="font-size:x-large" scope="col">Created at</th>
+			      <th style="font-size:x-large" scope="col">&nbsp;</th>
+			    </tr>
+			  </thead>
+				<tbody>
+					<% documents.forEach(details => { %>
+						<tr>
+							<td style="font-size:larger; font-weight:bold">
+									<%= details.totalCount %>
+							</td>
+							<td style="font-size:larger; font-weight:bold">
+									<%= moment(details.createdAt).format('DD-MM-YYYY') %>
+							</td>
+							<td>
+								<a href="/remove/<%= details._id %>" class="remove">
+									<span class="fas fa-times fa-lg"></span>
+								</a>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.datepicker').datepicker({
+			    format: 'yyyy/mm/dd',
+			});
+			// Restricts input for the given textbox to the given inputFilter function.
+			function setInputFilter(textbox, inputFilter) {
+			  ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+			    textbox.addEventListener(event, function() {
+			      if (inputFilter(this.value)) {
+			        this.oldValue = this.value;
+			        this.oldSelectionStart = this.selectionStart;
+			        this.oldSelectionEnd = this.selectionEnd;
+			      } else if (this.hasOwnProperty("oldValue")) {
+			        this.value = this.oldValue;
+			        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+			      } else {
+			        this.value = "";
+			      }
+			    });
+			  });
+			}
+			setInputFilter(document.getElementById("min"), function(value) {
+			  return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+			});
+			setInputFilter(document.getElementById("max"), function(value) {
+				return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+			});
+		});
+	</script>
+</body>

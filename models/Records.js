@@ -2,11 +2,7 @@
 //we exported so we could use it at index.js file
 
 const mongoose = require('mongoose');
-const CustomDocument = new mongoose.Schema({
-  totalCount: {
-    type: Number,
-    required: true
-  },
+const Records = new mongoose.Schema({
   key: {
     type: String,
     required: true
@@ -15,6 +11,10 @@ const CustomDocument = new mongoose.Schema({
     type: Date,
     default: Date.now,
     required: true
-  }
+  },
+  counts: {
+    type: [Number],
+    required: true
+  },
 })
-module.exports = mongoose.model('CustomDocument', CustomDocument);
+module.exports = mongoose.model('Records', Records);

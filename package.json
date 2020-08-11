@@ -1,12 +1,30 @@
 {
   "name": "restful_api",
   "version": "1.0.0",
-  "description": "This is a RESTful API implemented by Ozan Koyuk",
+  "description": "Simple RESTful API for retrieving a search result",
   "main": "index.js",
-  "author": "ozan.koyuk",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
     "express": "^4.17.1",
     "mongoose": "^5.9.27",
-  }
+    "nodemon": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozankoyuk/restful_api.git"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "ozankoyuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ozankoyuk/restful_api/issues"
+  },
+  "homepage": "https://github.com/ozankoyuk/restful_api#readme"
 }

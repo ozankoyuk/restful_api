@@ -4,6 +4,7 @@ const app = express(); // Start the server
 const mongoose = require("mongoose"); // Mongoose brings schema-based solution to my models
 const dotenv = require("dotenv"); // Connection to the database
 var database = require('./config/database'); // Connection details
+const PORT = process.env.PORT || 5000;
 
 const Records = require("./models/Records");
 
@@ -25,7 +26,7 @@ mongoose.set("useFindAndModify", false); // To use findOneAndUpdate
 // Run server if and only if connected to the database
 mongoose.connect(database.localUrl, { useNewUrlParser: true }, () => {
   console.log("Connected to db!");
-  app.listen(3001, () => console.log("Server up and running")); // Listen the given port
+  app.listen(PORT, () => console.log(`Server up and running. Listening on port ${PORT}`)); // Listen the given port
 });
 
 app.set("view engine", "ejs"); // View engine configuration

@@ -11,3 +11,5 @@ Request should contain a JSON body as in this schema:
     "maxCount": 2000
 }
 ```
+# Installation & Running
+You can simply clone/download the project and then run `npm install` to download modules. After that executing the command `npm start` will start the project on port 5000. 
